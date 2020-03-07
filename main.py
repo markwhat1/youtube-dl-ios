@@ -9,18 +9,14 @@ if len(sys.argv) != 2:
 url = sys.argv[1]
 print('url: %s' % (url))
 
-choices = (
-	('Audio', 'bestaudio[ext=m4a]', 'm4a'),
-	('Video', 'best[ext=mp4]', 'mp4'),
-)
-choice = console.alert('youtube-dl', 'Version to extract:',
-	*(c[0] for c in choices))
+choice = ('Video', 'best[ext=mp4]', 'mp4')
 
-_, format, ext = choices[choice-1]
+_, format, ext = choice
 print('format: %s' % (format))
 
 opts = {
 	'format': format
+	'output': '%(title)s.%(ext)s'
 }
 with YoutubeDL(opts) as ydl:
 	ydl.download([url])
